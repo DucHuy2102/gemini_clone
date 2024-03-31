@@ -22,10 +22,14 @@ const Sidebar = () => {
                     src={assets.menu_icon}
                     alt='Menu Icon'
                 />
+
+                {/* new chat */}
                 <div className={`${new_Chat_Style}`}>
                     <img className='w-[20px]' src={assets.plus_icon} alt='' />
                     {isClickExtended ? <p>New Chat</p> : null}
                 </div>
+
+                {/* history chat */}
                 {isClickExtended ? (
                     <div className='flex flex-col'>
                         <p className='mt-[30px] mb-[20px]'>Recent</p>
@@ -39,14 +43,19 @@ const Sidebar = () => {
 
             {/* bottom sidebar */}
             <div className='flex flex-col'>
+                {/* help */}
                 <div className={`${bottom_Item_Style} ${recent_Entry_Style}`}>
                     <img className='w-[20px]' src={assets.question_icon} alt='' />
                     {isClickExtended ? <p>Help</p> : null}
                 </div>
+
+                {/* activity */}
                 <div className={`${bottom_Item_Style} ${recent_Entry_Style}`}>
                     <img className='w-[20px]' src={assets.history_icon} alt='' />
                     {isClickExtended ? <p>Activity</p> : null}
                 </div>
+
+                {/* settings */}
                 <div className={`${bottom_Item_Style} ${recent_Entry_Style}`}>
                     <img className='w-[20px]' src={assets.setting_icon} alt='' />
                     {isClickExtended ? <p>Settings</p> : null}
