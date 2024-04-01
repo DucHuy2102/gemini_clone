@@ -1,5 +1,6 @@
 import React from 'react';
 import { assets } from '../assets/exportAssets';
+import './Main.css';
 
 const Main = () => {
     return (
@@ -11,9 +12,9 @@ const Main = () => {
             </div>
 
             {/* container */}
-            <div>
+            <div className='max-w-[900px] m-auto'>
                 {/* say hi */}
-                <div>
+                <div className='greet text-[56px] text-[#c4c7c5] font-[500] p-[20px]'>
                     <p>
                         <span>Hello, Duc Huy.</span>
                     </p>
@@ -21,21 +22,39 @@ const Main = () => {
                 </div>
 
                 {/* 4 cards */}
-                <div>
-                    <p>Cristiano Ronaldo comeback to Man Utd</p>
-                    <img src={assets.compass_icon} alt='' />
+                <div className='cards'>
+                    <div className='card'>
+                        <p>Cristiano Ronaldo comeback to Man Utd</p>
+                        <img src={assets.compass_icon} alt='' />
+                    </div>
+                    <div className='card'>
+                        <p>4 tricks to master your English speaking skill</p>
+                        <img src={assets.bulb_icon} alt='' />
+                    </div>
+                    <div className='card'>
+                        <p>The future of AI. What is happened with OpenAI</p>
+                        <img src={assets.message_icon} alt='' />
+                    </div>
+                    <div className='card'>
+                        <p>How long to learn a new programming language?</p>
+                        <img src={assets.code_icon} alt='' />
+                    </div>
                 </div>
-                <div>
-                    <p>4 tricks to master your English speaking skill</p>
-                    <img src={assets.bulb_icon} alt='' />
-                </div>
-                <div>
-                    <p>The future of AI. What is happened with OpenAI</p>
-                    <img src={assets.message_icon} alt='' />
-                </div>
-                <div>
-                    <p>How long to learn a new programming language?</p>
-                    <img src={assets.code_icon} alt='' />
+
+                {/* search */}
+                <div className='main-bottom'>
+                    <div className='search-box'>
+                        <input type='text' placeholder='Enter a prompt here' />
+                        <div className='flex gap-3'>
+                            <img src={assets.gallery_icon} alt='' />
+                            <img src={assets.mic_icon} alt='' />
+                            <img src={assets.send_icon} alt='' />
+                        </div>
+                    </div>
+                    <p className='bottom-info'>
+                        Gemini may display inaccurate info, including about people, so double-check its responses. Your
+                        privacy and Gemini Apps
+                    </p>
                 </div>
             </div>
         </div>
