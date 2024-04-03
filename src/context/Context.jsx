@@ -11,13 +11,44 @@ const ContextProvider = (props) => {
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState('');
 
+    const delayPara = (index, nextWord) => {
+        setTimeout(() => {
+            setData((prev) => prev + nextWord);
+        }, 75 * index);
+    };
+
+    const newChat = () => {
+        setLoading(false);
+        setShowResult(false);
+    };
+
     const onSent = async (prompt) => {
         setData('');
         setLoading(true);
         setShowResult(true);
-        setRecentPrompt(search);
-        const res = await runChat(search);
-        setData(res);
+        let responseData;
+        if (prompt !== undefined) {
+            responseData = await runChat(prompt);
+            setRecentPrompt(prompt);
+        } else {
+            setPrevPrompts((prev) => [...prev, search]);
+            setRecentPrompt(search);
+            responseData = await runChat(search);
+        }
+        let resArray = responseData.split('**');
+        let newResponse = '';
+        for (let i = 0; i < resArray.length; i++) {
+            if (i === 0 || i % 2 !== 1) {
+                newResponse += resArray[i];
+            } else {
+                newResponse += '<b>' + resArray[i] + '</b>';
+            }
+        }
+        let responseJoin = newResponse.split('*').join('</br>');
+        let responseArray = responseJoin.split(' ');
+        for (let i = 0; i < responseArray.length; i++) {
+            delayPara(i, responseArray[i] + ' ');
+        }
         setLoading(false);
         setSearch('');
     };
@@ -34,6 +65,7 @@ const ContextProvider = (props) => {
         data,
         search,
         setSearch,
+        newChat,
     };
     return <Context.Provider value={contextValue}>{props.children}</Context.Provider>;
 };

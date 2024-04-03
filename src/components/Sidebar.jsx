@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { assets } from '../assets/exportAssets';
+import { Context } from '../context/Context';
 
 // css
 const sidebar_Style = 'min-h-[100vh] inline-flex flex-col justify-between bg-[#f0f4f9] p-[25px]';
@@ -12,6 +13,13 @@ const bottom_Item_Style = 'pr-[10px] cursor-pointer';
 
 const Sidebar = () => {
     const [isClickExtended, setIsClickExtended] = useState(false);
+    const { onSent, prevPrompts, setRecentPrompt, newChat } = useContext(Context);
+
+    const loadPrompt = async (prompt) => {
+        setRecentPrompt(prompt);
+        await onSent(prompt);
+    };
+
     return (
         <div className={`${sidebar_Style}`}>
             {/* top sidebar */}
@@ -24,19 +32,23 @@ const Sidebar = () => {
                 />
 
                 {/* new chat */}
-                <div className={`${new_Chat_Style}`}>
+                <div onClick={() => newChat()} className={`${new_Chat_Style}`}>
                     <img className='w-[20px]' src={assets.plus_icon} alt='' />
                     {isClickExtended ? <p>New Chat</p> : null}
                 </div>
 
                 {/* history chat */}
                 {isClickExtended ? (
-                    <div className='flex flex-col'>
+                    <div className='flex flex-col '>
                         <p className='mt-[30px] mb-[20px]'>Recent</p>
-                        <div className={`${recent_Entry_Style}`}>
-                            <img className='w-[20px]' src={assets.message_icon} alt='' />
-                            <p>What is Reactjs?</p>
-                        </div>
+                        {prevPrompts.map((item, index) => {
+                            return (
+                                <div onClick={() => loadPrompt(item)} key={index} className={`${recent_Entry_Style}`}>
+                                    <img className='w-[20px]' src={assets.message_icon} alt='' />
+                                    <p>{item.slice(0, 20)} ...</p>
+                                </div>
+                            );
+                        })}
                     </div>
                 ) : null}
             </div>
